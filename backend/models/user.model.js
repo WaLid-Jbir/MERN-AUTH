@@ -1,6 +1,10 @@
 import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
@@ -11,7 +15,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     lastLogin: {
-        default: Date.now
+        type: Date,
+        default: Date.now,
     },
     isVerified: {
         type: Boolean,
