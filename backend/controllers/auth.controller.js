@@ -170,8 +170,6 @@ export const resetPassword = async (req, res) => {
         // Update the user's password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        console.log("Hashed Password : ", hashedPassword)
-
         user.password = hashedPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpiresAt = undefined;
@@ -185,6 +183,26 @@ export const resetPassword = async (req, res) => {
         
     } catch (error) {
         console.log("Error in resetPassword", error);
+        res.status(500).json({success: false, message: error.message});
+    }
+}
+
+export const checkAuth = async (req, res) => {
+
+    const userId = req.userId;
+
+    try {
+
+        const user = await User.findById(userId).select("-password");
+
+        if (!user) {
+            return res.status(400).json({success: false, message: "User not found"});
+        }
+
+        res.status(200).json({success: true, message: "User authenticated", user});
+
+    } catch (error) {
+        console.log("Error in checkAuth", error);
         res.status(500).json({success: false, message: error.message});
     }
 }
