@@ -5,8 +5,20 @@ import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import EmailVerificationPage from './pages/EmailVerificationPage';
 import { Toaster } from 'react-hot-toast';
+import { useAuthStore } from './store/authStore';
+import { useEffect } from 'react';
 
 function App() {
+
+  const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  console.log('isAuthenticated:', isAuthenticated);
+  console.log('user:', user);
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center relative overflow-hidden'>
       <FloatingShape color='bg-blue-400' size='w-64 h-64' top='-5%' left='10%' delay={0} />
