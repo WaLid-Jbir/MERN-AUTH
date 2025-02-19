@@ -8,6 +8,7 @@ import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import EmailVerificationPage from './pages/EmailVerificationPage';
 import DashboardPage from './pages/DashboardPage';
+import LoadingSpinner from './components/LoadingSpinner';
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -45,8 +46,9 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  console.log('isAuthenticated:', isAuthenticated);
-  console.log('user:', user);
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center relative overflow-hidden'>
