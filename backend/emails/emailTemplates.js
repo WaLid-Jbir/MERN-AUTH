@@ -207,23 +207,75 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Your Password</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+    .header {
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+    .header h1 {
+      color: white;
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .content {
+      background-color: white;
+      padding: 30px 20px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .button {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 12px 24px;
+      background-color: #3b82f6;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .button:hover {
+      background-color: #2563eb;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #888;
+      font-size: 0.8em;
+    }
+    .footer p {
+      margin: 5px 0;
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Password Reset</h1>
+<body>
+  <div class="header">
+    <h1>Password Reset</h1>
   </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+  <div class="content">
     <p>Hello,</p>
     <p>We received a request to reset your password. If you didn't make this request, please ignore this email.</p>
     <p>To reset your password, click the button below:</p>
     <div style="text-align: center; margin: 30px 0;">
-      <a href="{resetURL}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+      <a href="{resetURL}" class="button">Reset Password</a>
     </div>
-    <p>This link will expire in 1 hour for security reasons.</p>
+    <p>This link will expire in <strong>1 hour</strong> for security reasons.</p>
     <p>Best regards,<br>Your App Team</p>
   </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
+  <div class="footer">
     <p>This is an automated message, please do not reply to this email.</p>
+    <p>Need help? <a href="mailto:support@yourapp.com" style="color: #3b82f6; text-decoration: none;">Contact Support</a></p>
   </div>
 </body>
 </html>
