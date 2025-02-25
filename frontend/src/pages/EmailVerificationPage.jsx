@@ -12,30 +12,50 @@ const EmailVerificationPage = () => {
     const { error, isLoading, verifyEmail } = useAuthStore();
 
     const handleChange = (index, value) => {
-		const newCode = [...code];
+        const newCode = [...code];
 
-		// Handle pasted content
-		if (value.length > 1) {
-			const pastedCode = value.slice(0, 6).split("");
-			for (let i = 0; i < 6; i++) {
-				newCode[i] = pastedCode[i] || "";
-			}
-			setCode(newCode);
+        // Handle pasted content
+        if (value.length > 1) {
+            const pastedCode = value.slice(0, 6).split("");
+            for (let i = 0; i < 6; i++) {
+                newCode[i] = pastedCode[i] || "";
+            }
+            setCode(newCode);
 
-			// Focus on the last non-empty input or the first empty one
-			const lastFilledIndex = newCode.findLastIndex((digit) => digit !== "");
-			const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5;
-			inputRefs.current[focusIndex].focus();
-		} else {
-			newCode[index] = value;
-			setCode(newCode);
+            // Focus on the last non-empty input or the first empty one
+            const lastFilledIndex = newCode.findLastIndex((digit) => digit !== "");
+            const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5;
+            inputRefs.current[focusIndex].focus();
+        } else {
+            // Ensure only numeric values are entered
+            if (/^\d*$/.test(value)) {
+                newCode[index] = value;
+                setCode(newCode);
 
-			// Move focus to the next input field if value is entered
-			if (value && index < 5) {
-				inputRefs.current[index + 1].focus();
-			}
-		}
-	};
+                // Move focus to the next input field if value is entered
+                if (value && index < 5) {
+                    inputRefs.current[index + 1].focus();
+                }
+            }
+        }
+    };
+
+    const handlePaste = (e) => {
+        e.preventDefault();
+        const pastedData = e.clipboardData.getData('text').slice(0, 6); // Get pasted data and limit to 6 characters
+        const pastedCode = pastedData.split('');
+
+        const newCode = [...code];
+        for (let i = 0; i < 6; i++) {
+            newCode[i] = pastedCode[i] || '';
+        }
+        setCode(newCode);
+
+        // Focus on the last non-empty input or the first empty one
+        const lastFilledIndex = newCode.findLastIndex((digit) => digit !== "");
+        const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5;
+        inputRefs.current[focusIndex].focus();
+    };
 
     const handleKeyDown = (index, e) => {
         if (e.key === 'Backspace' && index > 0 && !code[index]) {
@@ -86,11 +106,12 @@ const EmailVerificationPage = () => {
                                 value={digit}
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(index, e)}
+                                onPaste={handlePaste} // Add onPaste handler
                                 className='w-12 h-12 text-center text-2xl font-bold bg-gray-700 text-white border-2 border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none'
                             />
                         ))}
                     </div>
-                    
+
                     {error && <p className='text-red-500 font-semibold mt-2'>{error}</p>}
 
                     <motion.button
