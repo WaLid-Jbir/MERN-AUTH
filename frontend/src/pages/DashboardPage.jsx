@@ -24,6 +24,20 @@ const DashboardPage = () => {
         Dashboard
       </h2>
 
+      {/* Profile Picture Section */}
+      <motion.div
+          className="flex justify-center mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          <img
+            src={user.picture ?  user.picture : "https://ui-avatars.com/api/?name=" + user.name}
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover border-2 border-blue-500 shadow-lg"
+          />
+      </motion.div>
+
       <div className="space-y-6">
         <motion.div
           className="p-6 bg-gray-900 bg-opacity-50 rounded-lg border border-gray-700 hover:border-blue-500 transition-colors duration-300"
