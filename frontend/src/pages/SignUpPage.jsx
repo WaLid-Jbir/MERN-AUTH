@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { useAuthStore } from "../store/authStore";
+import GoogleAuthButton from "../components/GoogleAuthButton";
 
 const SignUpPage = () => {
 	const [name, setName] = useState("");
@@ -97,6 +98,16 @@ const SignUpPage = () => {
 						)}
 					</motion.button>
 				</form>
+
+				{/* Divider */}
+				<div className="flex items-center my-6">
+					<div className="flex-1 h-px bg-gray-700"></div>
+					<span className="px-4 text-gray-400">or</span>
+					<div className="flex-1 h-px bg-gray-700"></div>
+				</div>
+
+				<GoogleAuthButton />
+
 			</div>
 
 			<div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">

@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
 import { useAuthStore } from "../store/authStore";
 import { formatDate } from "../utils/date";
-import { Clock, Mail, User, Calendar } from "lucide-react";
+import { Clock, Mail, User, Calendar, Loader } from "lucide-react";
 import toast from "react-hot-toast";
 
 const DashboardPage = () => {
-  const { user, logout } = useAuthStore();
+  const { user, logout, isLoading } = useAuthStore();
 
   const handleLogout = () => {
-    logout();
-    toast.success("Logged out successfully!");
+    try {
+      logout();
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error("Failed to logout");
+    }
   };
 
   return (
@@ -116,7 +120,11 @@ const DashboardPage = () => {
             font-bold rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700
             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
         >
-          Logout
+          {isLoading ? (
+              <Loader className="animate-spin mx-auto" size={24} />
+          ) : (
+              "Logout"
+          )}
         </motion.button>
       </motion.div>
     </motion.div>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { useAuthStore } from "../store/authStore";
 import toast from "react-hot-toast";
+import GoogleAuthButton from "../components/GoogleAuthButton";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
@@ -65,6 +66,16 @@ const LoginPage = () => {
 						{isLoading ? <Loader className='w-6 h-6 animate-spin  mx-auto' /> : "Login"}
 					</motion.button>
 				</form>
+
+				{/* Divider */}
+				<div className="flex items-center my-6">
+					<div className="flex-1 h-px bg-gray-700"></div>
+					<span className="px-4 text-gray-400">or</span>
+					<div className="flex-1 h-px bg-gray-700"></div>
+				</div>
+
+				<GoogleAuthButton />
+
 			</div>
 			<div className='px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center'>
 				<p className='text-sm text-gray-400'>
