@@ -12,6 +12,7 @@ export const useAuthStore = create((set) => ({
   isLoading: false,
   isCheckingAuth: true,
   message: null,
+  isGoogleLoading: false,
 
   signup: async (email, password, name) => {
     set({ isLoading: true, error: null });
@@ -93,6 +94,17 @@ export const useAuthStore = create((set) => ({
     } catch (error) {
       console.error("Error resetting password:", error);
       set({ isLoading: false, error: error.response.message || "Error resetting password" });
+      throw error;
+    }
+  },
+
+  googleAuth: async () => {
+    set({ isGoogleLoading: true, error: null });
+    try {
+      // Redirect the user to the backend Google OAuth endpoint
+      window.location.href = `${API_URL}/api/auth/google`;
+    } catch (error) {
+      set({ error: "Error logging in with Google", isGoogleLoading: false });
       throw error;
     }
   },
