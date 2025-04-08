@@ -4,6 +4,9 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "passport";
 import session from "express-session";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./swagger.js";
+
 
 import './utils/passport.js'; // import passport configuration
 
@@ -37,6 +40,9 @@ app.use(cookieParser()); // allows to parse incoming cookies
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', googleRoutes);
+
+// swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
     connectDB();
