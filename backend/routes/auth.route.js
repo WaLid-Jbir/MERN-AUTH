@@ -199,6 +199,28 @@ router.post("/login", login);
  */
 router.get("/check-auth", verifyToken, checkAuth);
 
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Log out the user
+ *     tags:
+ *       - Auth
+ *     responses:
+ *       200:
+ *         description: Logged out successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Logged out successfully
+ */
 router.post("/logout", logout);
 
 router.post("/verify-email", verifyEmail);
